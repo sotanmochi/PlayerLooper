@@ -10,7 +10,7 @@ using PlayerLooper;
 
 namespace PlayerLooperSamples
 {
-    public class ApplicationLifecycle : MonoBehaviour
+    public class Lifecycle : MonoBehaviour
     {
         LoopCounterA _loopCounterA;
         LoopCounterB _loopCounterB;
