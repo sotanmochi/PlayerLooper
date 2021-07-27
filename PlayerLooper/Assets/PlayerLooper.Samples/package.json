@@ -1,0 +1,9 @@
+{
+    "name": "jp.sotanmochi.playerlooper.samples",
+    "version": "1.0.0",
+    "displayName": "PlayerLooper.Samples",
+    "description": "A utility to integrate pure C# classes (Non-MonoBehaviour classes) into Unity's PlayerLoop.",
+    "license": "MIT",
+    "unity": "2019.4",
+    "dependencies": {}
+}
