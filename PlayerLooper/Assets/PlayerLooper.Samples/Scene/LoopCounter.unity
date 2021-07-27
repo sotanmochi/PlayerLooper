@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 61253719}
   - component: {fileID: 61253718}
   m_Layer: 0
-  m_Name: ApplicationLifecycle
+  m_Name: Lifecycle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

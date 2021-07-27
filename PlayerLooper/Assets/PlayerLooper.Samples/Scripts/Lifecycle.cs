@@ -3,7 +3,7 @@ using PlayerLooper;
 
 namespace PlayerLooperSamples
 {
-    public class ApplicationLifecycle : MonoBehaviour
+    public class Lifecycle : MonoBehaviour
     {
         [SerializeField] LoopCountPresenter _loopCountPresenter;
 
