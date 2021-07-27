@@ -76,6 +76,18 @@ namespace PlayerLooperSamples
 }
 ```
 
+## How to install
+```
+// manifest.json
+{
+  "dependencies": {
+    "jp.sotanmochi.playerlooper": "https://github.com/sotanmochi/PlayerLooper.git?path=PlayerLooper/Assets/PlayerLooper",
+    "jp.sotanmochi.playerlooper.samples": "https://github.com/sotanmochi/PlayerLooper.git?path=PlayerLooper/Assets/PlayerLooper.Samples",
+    ...
+  }
+}
+```
+
 ## Available interfaces
 
 | PlayerLooper entry point                 | Timing |
