@@ -240,4 +240,4 @@ PostLateUpdate.ProfilerEndFrame
 ```
 
 ## License
-This library is licensed under the MIT License.
+This library is licensed under [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
