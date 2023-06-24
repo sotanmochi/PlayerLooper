@@ -81,8 +81,7 @@ namespace PlayerLooperSamples
 // manifest.json
 {
   "dependencies": {
-    "jp.sotanmochi.playerlooper": "https://github.com/sotanmochi/PlayerLooper.git?path=PlayerLooper/Assets/PlayerLooper",
-    "jp.sotanmochi.playerlooper.samples": "https://github.com/sotanmochi/PlayerLooper.git?path=PlayerLooper/Assets/PlayerLooper.Samples",
+    "jp.sotanmochi.playerlooper": "https://github.com/sotanmochi/PlayerLooper.git?path=PlayerLooper/Packages/PlayerLooper",
     ...
   }
 }
@@ -240,4 +239,4 @@ PostLateUpdate.ProfilerEndFrame
 ```
 
 ## License
-This library is licensed under the MIT License.
+This library is licensed under [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
