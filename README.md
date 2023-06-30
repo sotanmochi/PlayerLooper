@@ -93,32 +93,38 @@ namespace PlayerLooperSamples
 |:-----------------------------------------|:----------------------------------|
 | `IInitializable.Initialize()`            | Early `PlayerLoop.Initialization` |
 | `IPostInitializable.PostInitialize()`    | Late `PlayerLoop.Initialization`  |
-| `IStartable.Start()`                     | Before `MonoBehaviour.Start()`    |
-| `IPostStartable.PostStart()`             | After `MonoBehaviour.Start()`     |
-| `IFixedUpdatable.FixedUpdate()`          | Before `MonoBehaviour.FixedUpdate()` |
-| `IPostFixedUpdatable.PostFixedUpdate()`  | After `MonoBehaviour.FixedUpdate()` |
-| `IUpdatable.Update()`                    | Before `MonoBehaviour.Update()` |
-| `IPostUpdatable.PostUpdate()`            | After `MonoBehaviour.Update()` |
-| `ILateUpdatable.LateUpdate()`            | Before `MonoBehaviour.LateUpdate()` |
-| `IPostLateUpdatable.PostLateUpdate()`    | After `MonoBehaviour.LateUpdate()` |
+| `IStartable.Startup()`                   | Before `MonoBehaviour.Start()`    |
+| `IPostStartable.PostStartup()`           | After `MonoBehaviour.Start()`     |
+| `IFixedTickable.FixedTick()`             | Before `MonoBehaviour.FixedUpdate()` |
+| `IPostFixedTickable.PostFixedTick()`     | After `MonoBehaviour.FixedUpdate()` |
+| `ITickable.Tick()`                       | Before `MonoBehaviour.Update()` |
+| `IPostTickable.PostTick()`               | After `MonoBehaviour.Update()` |
+| `ILateTickable.LateTick()`               | Before `MonoBehaviour.LateUpdate()` |
+| `IPostLateTickable.PostLateTick()`       | After `MonoBehaviour.LateUpdate()` |
 
-## PlayerLoop (Unity2019.4)
+## PlayerLoop (Unity2021.3)
 
 ```
-------Initialization------
-** PlayerLooperInitialization **
-Initialization.PlayerUpdateTime
+
+---------- TimeUpdate ----------
+***** TimeUpdate.PlayerLooperPreTimeUpdate *****
+TimeUpdate.WaitForLastPresentationAndUpdateTime
+***** TimeUpdate.PlayerLooperPostTimeUpdate *****
+---------- Initialization ----------
+***** Initialization.PlayerLooperPreProfilerStartFrame *****
+Initialization.ProfilerStartFrame
+***** Initialization.PlayerLooperPreInitialization *****
+Initialization.UpdateCameraMotionVectors
+Initialization.DirectorSampleTime
 Initialization.AsyncUploadTimeSlicedUpdate
 Initialization.SynchronizeInputs
 Initialization.SynchronizeState
 Initialization.XREarlyUpdate
-** PlayerLooperPostInitialization **
-------EarlyUpdate------
+***** Initialization.PlayerLooperPostInitialization *****
+---------- EarlyUpdate ----------
 EarlyUpdate.PollPlayerConnection
-EarlyUpdate.ProfilerStartFrame
 EarlyUpdate.GpuTimestamp
-EarlyUpdate.UnityConnectClientUpdate
-EarlyUpdate.CloudWebServicesUpdate
+EarlyUpdate.AnalyticsCoreStatsUpdate
 EarlyUpdate.UnityWebRequestUpdate
 EarlyUpdate.ExecuteMainThreadJobs
 EarlyUpdate.ProcessMouseInWindow
@@ -126,47 +132,46 @@ EarlyUpdate.ClearIntermediateRenderers
 EarlyUpdate.ClearLines
 EarlyUpdate.PresentBeforeUpdate
 EarlyUpdate.ResetFrameStatsAfterPresent
-EarlyUpdate.UpdateAllUnityWebStreams
 EarlyUpdate.UpdateAsyncReadbackManager
+EarlyUpdate.UpdateStreamingManager
 EarlyUpdate.UpdateTextureStreamingManager
 EarlyUpdate.UpdatePreloading
 EarlyUpdate.RendererNotifyInvisible
 EarlyUpdate.PlayerCleanupCachedData
 EarlyUpdate.UpdateMainGameViewRect
 EarlyUpdate.UpdateCanvasRectTransform
+EarlyUpdate.XRUpdate
 EarlyUpdate.UpdateInputManager
 EarlyUpdate.ProcessRemoteInput
-EarlyUpdate.XRUpdate
-EarlyUpdate.TangoUpdate
-** PlayerLooperStart **
+***** EarlyUpdate.PlayerLooperPreStartup *****
 EarlyUpdate.ScriptRunDelayedStartupFrame
+***** EarlyUpdate.PlayerLooperPostStartup *****
 EarlyUpdate.UpdateKinect
 EarlyUpdate.DeliverIosPlatformEvents
+EarlyUpdate.ARCoreUpdate
 EarlyUpdate.DispatchEventQueueEvents
-EarlyUpdate.DirectorSampleTime
 EarlyUpdate.PhysicsResetInterpolatedTransformPosition
-EarlyUpdate.NewInputBeginFrame
 EarlyUpdate.SpriteAtlasManagerUpdate
 EarlyUpdate.PerformanceAnalyticsUpdate
-** PlayerLooperPostStart **
-------FixedUpdate------
+---------- FixedUpdate ----------
 FixedUpdate.ClearLines
-FixedUpdate.NewInputEndFixedUpdate
+FixedUpdate.NewInputFixedUpdate
 FixedUpdate.DirectorFixedSampleTime
 FixedUpdate.AudioFixedUpdate
-** PlayerLooperFixedUpdate **
+***** FixedUpdate.PlayerLooperPreBehaviourFixedUpdate *****
 FixedUpdate.ScriptRunBehaviourFixedUpdate
+***** FixedUpdate.PlayerLooperPostBehaviourFixedUpdate *****
 FixedUpdate.DirectorFixedUpdate
 FixedUpdate.LegacyFixedAnimationUpdate
 FixedUpdate.XRFixedUpdate
+***** FixedUpdate.PlayerLooperPrePhysicsFixedUpdate *****
 FixedUpdate.PhysicsFixedUpdate
+***** FixedUpdate.PlayerLooperPostPhysicsFixedUpdate *****
 FixedUpdate.Physics2DFixedUpdate
+FixedUpdate.PhysicsClothFixedUpdate
 FixedUpdate.DirectorFixedUpdatePostPhysics
 FixedUpdate.ScriptRunDelayedFixedFrameRate
-FixedUpdate.ScriptRunDelayedTasks
-FixedUpdate.NewInputBeginFixedUpdate
-** PlayerLooperPostFixedUpdate **
-------PreUpdate------
+---------- PreUpdate ----------
 PreUpdate.PhysicsUpdate
 PreUpdate.Physics2DUpdate
 PreUpdate.CheckTexFieldInput
@@ -176,41 +181,52 @@ PreUpdate.SendMouseEvents
 PreUpdate.AIUpdate
 PreUpdate.WindUpdate
 PreUpdate.UpdateVideo
-------Update------
-** PlayerLooperUpdate **
+---------- Update ----------
+***** Update.PlayerLooperPreBehaviourUpdate *****
 Update.ScriptRunBehaviourUpdate
+***** Update.PlayerLooperPostBehaviourUpdate *****
 Update.ScriptRunDelayedDynamicFrameRate
+***** Update.PlayerLooperPreDelayedTasks *****
+Update.ScriptRunDelayedTasks
+***** Update.PlayerLooperPostDelayedTasks *****
 Update.DirectorUpdate
-** PlayerLooperPostUpdate **
-------PreLateUpdate------
+---------- PreLateUpdate ----------
 PreLateUpdate.AIUpdatePostScript
+***** PreLateUpdate.PlayerLooperPreDirectorUpdateAnimationBegin *****
 PreLateUpdate.DirectorUpdateAnimationBegin
 PreLateUpdate.LegacyAnimationUpdate
 PreLateUpdate.DirectorUpdateAnimationEnd
+***** PreLateUpdate.PlayerLooperPostDirectorUpdateAnimationEnd *****
 PreLateUpdate.DirectorDeferredEvaluate
-PreLateUpdate.UpdateNetworkManager
-PreLateUpdate.UpdateMasterServerInterface
-PreLateUpdate.UNetUpdate
-PreLateUpdate.EndGraphicsJobsLate
-PreLateUpdate.ParticleSystemBeginUpdateAll
-** PlayerLooperLateUpdate **
-PreLateUpdate.ScriptRunBehaviourLateUpdate
+PreLateUpdate.UIElementsUpdatePanels
+PreLateUpdate.EndGraphicsJobsAfterScriptUpdate
 PreLateUpdate.ConstraintManagerUpdate
-** PlayerLooperPostLateUpdate **
-------PostLateUpdate------
+PreLateUpdate.ParticleSystemBeginUpdateAll
+PreLateUpdate.Physics2DLateUpdate
+***** PreLateUpdate.PlayerLooperPreBehaviourLateUpdate *****
+PreLateUpdate.ScriptRunBehaviourLateUpdate
+***** PreLateUpdate.PlayerLooperPostBehaviourLateUpdate *****
+---------- PostLateUpdate ----------
 PostLateUpdate.PlayerSendFrameStarted
 PostLateUpdate.DirectorLateUpdate
 PostLateUpdate.ScriptRunDelayedDynamicFrameRate
 PostLateUpdate.PhysicsSkinnedClothBeginUpdate
-PostLateUpdate.UpdateCanvasRectTransform
+PostLateUpdate.UpdateRectTransform
 PostLateUpdate.PlayerUpdateCanvases
 PostLateUpdate.UpdateAudio
-PostLateUpdate.ParticlesLegacyUpdateAllParticleSystems
+PostLateUpdate.VFXUpdate
 PostLateUpdate.ParticleSystemEndUpdateAll
+PostLateUpdate.EndGraphicsJobsAfterScriptLateUpdate
 PostLateUpdate.UpdateCustomRenderTextures
+PostLateUpdate.XRPostLateUpdate
+***** PostLateUpdate.PlayerLooperPreUpdateAllRenderers *****
 PostLateUpdate.UpdateAllRenderers
+***** PostLateUpdate.PlayerLooperPostUpdateAllRenderers *****
+PostLateUpdate.UpdateLightProbeProxyVolumes
 PostLateUpdate.EnlightenRuntimeUpdate
+***** PostLateUpdate.PlayerLooperPreUpdateAllSkinnedMeshes *****
 PostLateUpdate.UpdateAllSkinnedMeshes
+***** PostLateUpdate.PlayerLooperPostUpdateAllSkinnedMeshes *****
 PostLateUpdate.ProcessWebSendMessages
 PostLateUpdate.SortingGroupsUpdate
 PostLateUpdate.UpdateVideoTextures
@@ -219,6 +235,7 @@ PostLateUpdate.DirectorRenderImage
 PostLateUpdate.PlayerEmitCanvasGeometry
 PostLateUpdate.PhysicsSkinnedClothFinishUpdate
 PostLateUpdate.FinishFrameRendering
+***** PostLateUpdate.PlayerLooperPostFinishFrameRendering *****
 PostLateUpdate.BatchModeUpdate
 PostLateUpdate.PlayerSendFrameComplete
 PostLateUpdate.UpdateCaptureScreenshot
@@ -235,7 +252,10 @@ PostLateUpdate.ThreadedLoadingDebug
 PostLateUpdate.ProfilerSynchronizeStats
 PostLateUpdate.MemoryFrameMaintenance
 PostLateUpdate.ExecuteGameCenterCallbacks
+PostLateUpdate.XRPreEndFrame
 PostLateUpdate.ProfilerEndFrame
+***** PostLateUpdate.PlayerLooperPostProfilerEndFrame *****
+PostLateUpdate.GraphicsWarmupPreloadedShaders
 ```
 
 ## License

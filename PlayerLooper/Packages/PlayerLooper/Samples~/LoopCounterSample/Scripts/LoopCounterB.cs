@@ -3,17 +3,17 @@ using PlayerLooper;
 
 namespace PlayerLooperSamples
 {
-    public class LoopCounterB : IStartable, IUpdatable, IDisposable
+    public class LoopCounterB : IStartable, ITickable, IDisposable
     {
         public int LoopCount => _loopCount;
         private int _loopCount;
 
-        public void Start()
+        public void Startup()
         {
             _loopCount = -1000;
         }
 
-        public void Update()
+        public void Tick()
         {
             _loopCount++;
         }

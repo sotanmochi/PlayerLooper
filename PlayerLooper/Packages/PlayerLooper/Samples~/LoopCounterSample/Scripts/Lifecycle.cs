@@ -17,8 +17,8 @@ namespace PlayerLooperSamples
             _loopCountPresenter.Construct(_loopCounterA, _loopCounterB);
 
             // Method registeration
-            GlobalPlayerLooper.Register(_loopCounterA.Startup, PlayerLoopTiming.Startup);
-            GlobalPlayerLooper.Register(_loopCounterA.Tick, PlayerLoopTiming.Update);
+            GlobalPlayerLooper.Register(_loopCounterA.Startup, LoopTiming.PreStartup);
+            GlobalPlayerLooper.Register(_loopCounterA.Tick, LoopTiming.PreBehaviourUpdate);
 
             // Instance registration
             GlobalPlayerLooper.Register(_loopCounterB);

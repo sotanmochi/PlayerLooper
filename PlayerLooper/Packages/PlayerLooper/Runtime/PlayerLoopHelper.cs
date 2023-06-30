@@ -5,6 +5,12 @@ namespace PlayerLooper
 {
     public static class PlayerLoopHelper
     {
+        public enum InsertPosition
+        {
+            Before = 0,
+            After = 1,
+        }
+
         public static PlayerLoopSystem CreateLoopSystem<T>(PlayerLoopSystem.UpdateFunction updateDelegate)
         {
             return new PlayerLoopSystem()
@@ -31,6 +37,11 @@ namespace PlayerLooper
 
         public static void InsertSubSystem(ref PlayerLoopSystem currentSystem, int insertIndex, ref PlayerLoopSystem newSubSystem)
         {
+            if (insertIndex < 0)
+            {
+                throw new ArgumentException($"The insertIndex must be in the range 0 to {currentSystem.subSystemList.Length} for {currentSystem}.");
+            }
+
             var newSubSystemList = new PlayerLoopSystem[currentSystem.subSystemList.Length + 1];
 
             for (int i = 0; i < newSubSystemList.Length; i++)
@@ -52,7 +63,7 @@ namespace PlayerLooper
             currentSystem.subSystemList = newSubSystemList;
         }
 
-        public static void InsertSubSystem(ref PlayerLoopSystem currentSystem, Type targetSubSystemType, ref PlayerLoopSystem newSubSystem)
+        public static void InsertSubSystem(ref PlayerLoopSystem currentSystem, Type targetSubSystemType, InsertPosition insertPosition, ref PlayerLoopSystem newSubSystem)
         {
             int insertIndex = -1;
 
@@ -66,7 +77,12 @@ namespace PlayerLooper
                 {
                     if (currentSystem.subSystemList[i].type == targetSubSystemType)
                     {
-                        insertIndex = i;
+                        insertIndex = insertPosition switch
+                        {
+                            InsertPosition.Before => i,
+                            InsertPosition.After  => i + 1,
+                            _ => i,
+                        };
                     }
                 }
             }
@@ -79,7 +95,7 @@ namespace PlayerLooper
             InsertSubSystem(ref currentSystem, insertIndex, ref newSubSystem);
         }
 
-        public static void AddSubSystem(ref PlayerLoopSystem currentSystem, ref PlayerLoopSystem newSubSystem)
+        public static void AppendSubSystem(ref PlayerLoopSystem currentSystem, ref PlayerLoopSystem newSubSystem)
         {
             var newSubSystemList = new PlayerLoopSystem[currentSystem.subSystemList.Length + 1];
 
