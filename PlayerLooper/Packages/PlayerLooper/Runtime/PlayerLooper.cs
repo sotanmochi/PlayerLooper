@@ -11,7 +11,7 @@ using UnityEngine.Experimental.LowLevel;
 using UnityEngine.Experimental.PlayerLoop;
 #endif
 
-namespace PlayerLooper
+namespace UnityPlayerLooper
 {
     public static class GlobalPlayerLooper
     {

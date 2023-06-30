@@ -73,7 +73,7 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
-    "jp.sotanmochi.playerlooper": {
+    "jp.sotanmochi.unityplayerlooper": {
       "version": "file:PlayerLooper",
       "depth": 0,
       "source": "embedded",

@@ -1,7 +1,7 @@
 {
-    "name": "jp.sotanmochi.playerlooper",
-    "version": "1.1.0",
-    "displayName": "PlayerLooper",
+    "name": "jp.sotanmochi.unityplayerlooper",
+    "version": "1.1.1",
+    "displayName": "UnityPlayerLooper",
     "description": "A utility to integrate pure C# classes (Non-MonoBehaviour classes) into Unity's PlayerLoop.",
     "license": "CC0",
     "unity": "2021.3",

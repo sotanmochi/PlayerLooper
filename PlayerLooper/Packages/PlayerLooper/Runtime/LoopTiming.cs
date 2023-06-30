@@ -1,4 +1,4 @@
-namespace PlayerLooper
+namespace UnityPlayerLooper
 {
     public enum LoopTiming
     {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.LowLevel;
 
-namespace PlayerLooper
+namespace UnityPlayerLooper
 {
     public static class PlayerLoopHelper
     {

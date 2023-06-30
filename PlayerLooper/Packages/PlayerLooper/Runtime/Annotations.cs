@@ -1,4 +1,4 @@
-namespace PlayerLooper
+namespace UnityPlayerLooper
 {
     public interface IInitializable { void Initialize(); }
     public interface IPostInitializable { void PostInitialize(); }

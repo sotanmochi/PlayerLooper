@@ -3,7 +3,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.LowLevel;
 
-namespace PlayerLooper.Utility
+namespace UnityPlayerLooper.Utility
 {
     public class PlayerLoopInfoExporter
     {

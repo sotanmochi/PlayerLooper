@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PlayerLooper
+namespace UnityPlayerLooper
 {
     public class PlayerLoopItem
     {

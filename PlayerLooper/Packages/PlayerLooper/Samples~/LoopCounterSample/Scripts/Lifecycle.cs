@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using PlayerLooper;
+using UnityPlayerLooper;
 
-namespace PlayerLooperSamples
+namespace UnityPlayerLooperSamples
 {
     public class Lifecycle : MonoBehaviour
     {

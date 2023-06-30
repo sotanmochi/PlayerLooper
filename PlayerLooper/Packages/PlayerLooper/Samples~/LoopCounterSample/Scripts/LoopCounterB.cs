@@ -1,7 +1,7 @@
 ﻿using System;
-using PlayerLooper;
+using UnityPlayerLooper;
 
-namespace PlayerLooperSamples
+namespace UnityPlayerLooperSamples
 {
     public class LoopCounterB : IStartable, ITickable, IDisposable
     {

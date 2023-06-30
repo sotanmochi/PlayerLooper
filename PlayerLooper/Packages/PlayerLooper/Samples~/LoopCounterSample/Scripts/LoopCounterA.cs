@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlayerLooperSamples
+namespace UnityPlayerLooperSamples
 {
     public class LoopCounterA : IDisposable
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PlayerLooperSamples
+namespace UnityPlayerLooperSamples
 {
     public class LoopCountPresenter : MonoBehaviour
     {

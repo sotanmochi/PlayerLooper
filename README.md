@@ -1,4 +1,4 @@
-# PlayerLooper
+# UnityPlayerLooper
 
 A utility to integrate pure C# classes (Non-MonoBehaviour classes) into Unity's PlayerLoop.
 
@@ -6,9 +6,9 @@ A utility to integrate pure C# classes (Non-MonoBehaviour classes) into Unity's 
 
 ```csharp
 using UnityEngine;
-using PlayerLooper;
+using UnityPlayerLooper;
 
-namespace PlayerLooperSamples
+namespace UnityPlayerLooperSamples
 {
     public class Lifecycle : MonoBehaviour
     {
@@ -32,7 +32,7 @@ namespace PlayerLooperSamples
 ```
 
 ```csharp
-namespace PlayerLooperSamples
+namespace UnityPlayerLooperSamples
 {
     public class LoopCounterA
     {
@@ -54,9 +54,9 @@ namespace PlayerLooperSamples
 
 Using interfaces for instance registration, it makes easier to register into multiple loop timings.
 ```csharp
-using PlayerLooper;
+using UnityPlayerLooper;
 
-namespace PlayerLooperSamples
+namespace UnityPlayerLooperSamples
 {
     public class LoopCounterB : IStartable, IUpdatable
     {
