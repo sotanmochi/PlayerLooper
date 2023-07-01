@@ -25,7 +25,6 @@ namespace UnityPlayerLooper
 
             _loopRunners[(int)LoopTiming.PreTimeUpdate] = new PlayerLoopRunner();
             _loopRunners[(int)LoopTiming.PostTimeUpdate] = new PlayerLoopRunner();
-            _loopRunners[(int)LoopTiming.PreProfilerStartFrame] = new PlayerLoopRunner();
             _loopRunners[(int)LoopTiming.PreInitialization] = new PlayerLoopRunner(true);
             _loopRunners[(int)LoopTiming.PostInitialization] = new PlayerLoopRunner(true);
             _loopRunners[(int)LoopTiming.PreStartup] = new PlayerLoopRunner(true);
@@ -46,8 +45,10 @@ namespace UnityPlayerLooper
             _loopRunners[(int)LoopTiming.PostUpdateAllSkinnedMeshes] = new PlayerLoopRunner();
             _loopRunners[(int)LoopTiming.PreDirectorUpdateAnimationBegin] = new PlayerLoopRunner();
             _loopRunners[(int)LoopTiming.PostDirectorUpdateAnimationEnd] = new PlayerLoopRunner();
-            _loopRunners[(int)LoopTiming.PostFinishFrameRendering] = new PlayerLoopRunner();
-            _loopRunners[(int)LoopTiming.PostProfilerEndFrame] = new PlayerLoopRunner();
+            _loopRunners[(int)LoopTiming.PrePlayerUpdateCanvases] = new PlayerLoopRunner();
+            _loopRunners[(int)LoopTiming.PostPlayerUpdateCanvases] = new PlayerLoopRunner();
+            _loopRunners[(int)LoopTiming.PreUpdateAudio] = new PlayerLoopRunner();
+            _loopRunners[(int)LoopTiming.PostUpdateAudio] = new PlayerLoopRunner();
 
             PlayerLoopSystem playerLoop =
 #if UNITY_2019_3_OR_NEWER
@@ -81,9 +82,6 @@ namespace UnityPlayerLooper
 
             var postTimeUpdateSystem = 
                 PlayerLoopHelper.CreateLoopSystem<PlayerLooperPostTimeUpdate>(_loopRunners[(int)LoopTiming.PostTimeUpdate].Run);
-
-            var preProfilerStartFrameSystem = 
-                PlayerLoopHelper.CreateLoopSystem<PlayerLooperPreProfilerStartFrame>(_loopRunners[(int)LoopTiming.PreProfilerStartFrame].Run);
 
             var preInitializationSystem = 
                 PlayerLoopHelper.CreateLoopSystem<PlayerLooperPreInitialization>(_loopRunners[(int)LoopTiming.PreInitialization].Run);
@@ -145,17 +143,22 @@ namespace UnityPlayerLooper
             var postDirectorUpdateAnimationEndSystem = 
                 PlayerLoopHelper.CreateLoopSystem<PlayerLooperPostDirectorUpdateAnimationEnd>(_loopRunners[(int)LoopTiming.PostDirectorUpdateAnimationEnd].Run);
 
-            var postFinishFrameRenderingSystem = 
-                PlayerLoopHelper.CreateLoopSystem<PlayerLooperPostFinishFrameRendering>(_loopRunners[(int)LoopTiming.PostFinishFrameRendering].Run);
+            var prePlayerUpdateCanvasesSystem = 
+                PlayerLoopHelper.CreateLoopSystem<PlayerLooperPrePlayerUpdateCanvases>(_loopRunners[(int)LoopTiming.PrePlayerUpdateCanvases].Run);
 
-            var postProfilerEndFrameSystem = 
-                PlayerLoopHelper.CreateLoopSystem<PlayerLooperPostProfilerEndFrame>(_loopRunners[(int)LoopTiming.PostProfilerEndFrame].Run);
+            var postPlayerUpdateCanvasesSystem = 
+                PlayerLoopHelper.CreateLoopSystem<PlayerLooperPostPlayerUpdateCanvases>(_loopRunners[(int)LoopTiming.PostPlayerUpdateCanvases].Run);
+
+            var preUpdateAudioSystem = 
+                PlayerLoopHelper.CreateLoopSystem<PlayerLooperPreUpdateAudio>(_loopRunners[(int)LoopTiming.PreUpdateAudio].Run);
+
+            var postUpdateAudioSystem = 
+                PlayerLoopHelper.CreateLoopSystem<PlayerLooperPostUpdateAudio>(_loopRunners[(int)LoopTiming.PostUpdateAudio].Run);
 
             PlayerLoopHelper.InsertSubSystem(ref timeUpdateSystem, 0, ref preTimeUpdateSystem);
             PlayerLoopHelper.AppendSubSystem(ref timeUpdateSystem, ref postTimeUpdateSystem);
 
-            PlayerLoopHelper.InsertSubSystem(ref initializationSystem, typeof(Initialization.ProfilerStartFrame), PlayerLoopHelper.InsertPosition.Before, ref preProfilerStartFrameSystem);
-            PlayerLoopHelper.InsertSubSystem(ref initializationSystem, typeof(Initialization.ProfilerStartFrame), PlayerLoopHelper.InsertPosition.After, ref preInitializationSystem);
+            PlayerLoopHelper.InsertSubSystem(ref initializationSystem, 0, ref preInitializationSystem);
             PlayerLoopHelper.AppendSubSystem(ref initializationSystem, ref postInitializationSystem);
 
             PlayerLoopHelper.InsertSubSystem(ref earlyUpdateSystem, typeof(EarlyUpdate.ScriptRunDelayedStartupFrame), PlayerLoopHelper.InsertPosition.Before, ref preStartupSystem);
@@ -184,9 +187,11 @@ namespace UnityPlayerLooper
             PlayerLoopHelper.InsertSubSystem(ref preLateUpdateSystem, typeof(PreLateUpdate.DirectorUpdateAnimationBegin), PlayerLoopHelper.InsertPosition.Before, ref preDirectorUpdateAnimationBeginSystem);
             PlayerLoopHelper.InsertSubSystem(ref preLateUpdateSystem, typeof(PreLateUpdate.DirectorUpdateAnimationEnd), PlayerLoopHelper.InsertPosition.After, ref postDirectorUpdateAnimationEndSystem);
 
-            PlayerLoopHelper.InsertSubSystem(ref postLateUpdateSystem, typeof(PostLateUpdate.FinishFrameRendering), PlayerLoopHelper.InsertPosition.After, ref postFinishFrameRenderingSystem);
+            PlayerLoopHelper.InsertSubSystem(ref postLateUpdateSystem, typeof(PostLateUpdate.PlayerUpdateCanvases), PlayerLoopHelper.InsertPosition.Before, ref prePlayerUpdateCanvasesSystem);
+            PlayerLoopHelper.InsertSubSystem(ref postLateUpdateSystem, typeof(PostLateUpdate.PlayerUpdateCanvases), PlayerLoopHelper.InsertPosition.After, ref postPlayerUpdateCanvasesSystem);
 
-            PlayerLoopHelper.InsertSubSystem(ref postLateUpdateSystem, typeof(PostLateUpdate.ProfilerEndFrame), PlayerLoopHelper.InsertPosition.After, ref postProfilerEndFrameSystem);
+            PlayerLoopHelper.InsertSubSystem(ref postLateUpdateSystem, typeof(PostLateUpdate.UpdateAudio), PlayerLoopHelper.InsertPosition.Before, ref preUpdateAudioSystem);
+            PlayerLoopHelper.InsertSubSystem(ref postLateUpdateSystem, typeof(PostLateUpdate.UpdateAudio), PlayerLoopHelper.InsertPosition.After, ref postUpdateAudioSystem);
 
             playerLoop.subSystemList = subSystemList;
             PlayerLoop.SetPlayerLoop(playerLoop);
@@ -330,7 +335,9 @@ namespace UnityPlayerLooper
         struct PlayerLooperPostUpdateAllSkinnedMeshes {}
         struct PlayerLooperPreDirectorUpdateAnimationBegin {}
         struct PlayerLooperPostDirectorUpdateAnimationEnd {}
-        struct PlayerLooperPostFinishFrameRendering {}
-        struct PlayerLooperPostProfilerEndFrame {}
+        struct PlayerLooperPrePlayerUpdateCanvases {}
+        struct PlayerLooperPostPlayerUpdateCanvases {}
+        struct PlayerLooperPreUpdateAudio {}
+        struct PlayerLooperPostUpdateAudio {}
     }
 }

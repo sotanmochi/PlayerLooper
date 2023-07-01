@@ -5,41 +5,41 @@ namespace UnityPlayerLooper
         PreTimeUpdate = 0,
         PostTimeUpdate = 1,
 
-        PreProfilerStartFrame = 2,
+        PreInitialization = 2,
+        PostInitialization = 3,
 
-        PreInitialization = 3,
-        PostInitialization = 4,
+        PreStartup = 4,
+        PostStartup = 5,
 
-        PreStartup = 5,
-        PostStartup = 6,
+        PreBehaviourFixedUpdate = 6,
+        PostBehaviourFixedUpdate = 7,
 
-        PreBehaviourFixedUpdate = 7,
-        PostBehaviourFixedUpdate = 8,
+        PreBehaviourUpdate = 8,
+        PostBehaviourUpdate = 9,
 
-        PreBehaviourUpdate = 9,
-        PostBehaviourUpdate = 10,
+        PreDelayedTasks = 10,
+        PostDelayedTasks = 11,
 
-        PreDelayedTasks = 11,
-        PostDelayedTasks = 12,
+        PreBehaviourLateUpdate  = 12,
+        PostBehaviourLateUpdate = 13,
 
-        PreBehaviourLateUpdate  = 13,
-        PostBehaviourLateUpdate = 14,
+        PrePhysicsFixedUpdate = 14,
+        PostPhysicsFixedUpdate = 15,
 
-        PrePhysicsFixedUpdate = 15,
-        PostPhysicsFixedUpdate = 16,
+        PreUpdateAllRenderers = 16,
+        PostUpdateAllRenderers = 17,
+        PreUpdateAllSkinnedMeshes = 18,
+        PostUpdateAllSkinnedMeshes = 19,
 
-        PreUpdateAllRenderers = 17,
-        PostUpdateAllRenderers = 18,
-        PreUpdateAllSkinnedMeshes = 19,
-        PostUpdateAllSkinnedMeshes = 20,
+        PreDirectorUpdateAnimationBegin = 20,
+        PostDirectorUpdateAnimationEnd = 21,
 
-        PreDirectorUpdateAnimationBegin = 21,
-        PostDirectorUpdateAnimationEnd = 22,
+        PrePlayerUpdateCanvases = 22,
+        PostPlayerUpdateCanvases = 23,
 
-        PostFinishFrameRendering = 23,
+        PreUpdateAudio = 24,
+        PostUpdateAudio = 25,
 
-        PostProfilerEndFrame = 24,
-
-        Count = 25,
+        Count = 26,
     }
 }
